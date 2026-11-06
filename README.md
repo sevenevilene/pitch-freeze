@@ -29,6 +29,24 @@ The UDP freeze message is meant to come from a script bound to the Pisound's har
 echo "freeze 1;" | pdsend 3000 localhost udp
 ```
 
+## Using it in Logic Pro (plugdata)
+
+The patch also runs inside [plugdata](https://plugdata.org/) as an AU plugin.
+
+**MIDI notes:** Logic doesn't send MIDI to effects on audio tracks. To play the pitch with MIDI, create a Software Instrument track, load plugdata in the Instrument slot, open `freeze.pd`, and choose the guitar track or input in the plugin window's **Side Chain** menu.
+
+**Automation:** plugdata exposes five parameters that Logic can automate, so the patch also works as a plain audio effect without MIDI:
+
+| Parameter | Range | Controls |
+| --- | --- | --- |
+| `pitch` | -24 to 24 semitones (0 = unity) | Pitch shift |
+| `freeze` | 0 / 1 | Freeze on/off |
+| `loopsize` | 1000 – 95999 samples | Freeze loop size |
+| `wetdry` | 0 – 1 | Wet/dry mix |
+| `playmode` | 0 forward, 1 reverse, 2 ping-pong | Loop playback mode |
+
+Pitch automation and MIDI notes set the same value, so whichever arrives last wins. The `[param]` objects only exist in plugdata. In vanilla Pd (for example on the Pisound) they fail to create with a harmless console error, and everything else works as before.
+
 ## Requirements
 
 - [Pure Data](https://puredata.info/) (vanilla 0.51 or newer; uses `expr`/`expr~`, which ship with vanilla)
@@ -41,11 +59,11 @@ echo "freeze 1;" | pdsend 3000 localhost udp
 Open the patch in Pd with DSP on:
 
 ```bash
-pd -r 48000 -mididev 1 main.pd
+pd -r 48000 -mididev 1 freeze.pd
 ```
 
-On a Pisound you can also run it headless (`pd -nogui -r 48000 main.pd`) or launch it through Pisound's button/Patchbox setup.
+On a Pisound you can also run it headless (`pd -nogui -r 48000 freeze.pd`) or launch it through Pisound's button/Patchbox setup.
 
 ## Files
 
-- `main.pd` — the whole engine in a single patch.
+- `freeze.pd` — the whole engine in a single patch.
