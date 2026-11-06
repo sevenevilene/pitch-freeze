@@ -2,6 +2,8 @@
 
 A Pure Data patch for the [Pisound](https://blokas.io/pisound/) (Raspberry Pi audio HAT) that turns a guitar input into a MIDI-controlled pitch shifter with a live "freeze" looper.
 
+Tested on a Pisound, including freezing with the hardware button.
+
 ## What it does
 
 - **Pitch shift** — the guitar on input 1 is written to a 2-second delay line and read back by two overlapping, triangle-windowed delay taps (`vd~`), giving a classic granular pitch shifter. Incoming MIDI notes set the interval: note 60 (middle C) is unity, and every semitone above or below shifts by one semitone.
