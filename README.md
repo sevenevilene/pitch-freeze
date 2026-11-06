@@ -67,3 +67,7 @@ On a Pisound you can also run it headless (`pd -nogui -r 48000 freeze.pd`) or la
 ## Files
 
 - `freeze.pd` — the whole engine in a single patch.
+
+## License
+
+[MIT](LICENSE) © 2026 Syver Ravn Myhre
