@@ -9,7 +9,7 @@ Tested on a Pisound, including freezing with the hardware button.
 - **Pitch shift** — the guitar on input 1 is written to a 2-second delay line and read back by two overlapping, triangle-windowed delay taps (`vd~`), giving a classic granular pitch shifter. Incoming MIDI notes set the interval: note 60 (middle C) is unity, and every semitone above or below shifts by one semitone.
 - **Freeze** — on a freeze trigger the input is captured into a 2-second buffer (`freezebuf`, 96000 samples) and looped with two crossfaded read heads, so the sound sustains without clicks. A 30 ms ramp crossfades between the live/pitch-shifted signal and the frozen loop.
 - **Loop playback modes** — forward, reverse or ping-pong.
-- **Loop size** — adjustable from 1000 to 95999 samples, and can be changed while frozen to alter the loop length live.
+- **Loop size** — adjustable from 1000 to 95999 samples, and can be changed while frozen to alter the loop length live without clicks. The frozen loop runs on two players (`pd player0` and `pd player1`). Every 50 ms, if the loop size or playback mode has changed, the silent player gets the new settings, starting at the same buffer position, and the output crossfades to it over 40 ms. The playing read head never jumps.
 - **Wet/dry mix** — blends the processed signal with the dry guitar.
 - Output goes to both channels (`dac~ 1` and `dac~ 2`).
 
